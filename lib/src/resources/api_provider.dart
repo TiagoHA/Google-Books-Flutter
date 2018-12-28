@@ -19,7 +19,7 @@ class ApiProvider {
     if (response.statusCode == 200) {
       return BooksModel.fromJson(response.data);
     }
-    throw Exception('Failed to load characters');
+    throw Exception('Failed to load books');
   }
 }
 
