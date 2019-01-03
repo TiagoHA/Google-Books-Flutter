@@ -67,7 +67,9 @@ class Item {
         volumeInfo: VolumeInfo.fromJson(json["volumeInfo"]),
         saleInfo: SaleInfo.fromJson(json["saleInfo"]),
         accessInfo: AccessInfo.fromJson(json["accessInfo"]),
-        searchInfo: SearchInfo.fromJson(json["searchInfo"]),
+        searchInfo: json["searchInfo"] == null
+            ? null
+            : SearchInfo.fromJson(json["searchInfo"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -78,7 +80,7 @@ class Item {
         "volumeInfo": volumeInfo.toJson(),
         "saleInfo": saleInfo.toJson(),
         "accessInfo": accessInfo.toJson(),
-        "searchInfo": searchInfo.toJson(),
+        "searchInfo": searchInfo == null ? null : searchInfo.toJson(),
       };
 }
 
@@ -173,10 +175,13 @@ final textToSpeechPermissionValues = new EnumValues({
   "ALLOWED_FOR_ACCESSIBILITY": TextToSpeechPermission.ALLOWED_FOR_ACCESSIBILITY
 });
 
-enum Viewability { PARTIAL, NO_PAGES }
+enum Viewability { PARTIAL, NO_PAGES, ALL_PAGES }
 
-final viewabilityValues = new EnumValues(
-    {"NO_PAGES": Viewability.NO_PAGES, "PARTIAL": Viewability.PARTIAL});
+final viewabilityValues = new EnumValues({
+  "ALL_PAGES": Viewability.ALL_PAGES,
+  "NO_PAGES": Viewability.NO_PAGES,
+  "PARTIAL": Viewability.PARTIAL
+});
 
 enum Kind { BOOKS_VOLUME }
 
@@ -285,7 +290,7 @@ class Offer {
 }
 
 class OfferListPrice {
-  double amountInMicros;
+  num amountInMicros;
   CurrencyCode currencyCode;
 
   OfferListPrice({
@@ -379,8 +384,10 @@ class VolumeInfo {
 
   factory VolumeInfo.fromJson(Map<String, dynamic> json) => new VolumeInfo(
         title: json["title"],
-        authors: new List<String>.from(json["authors"].map((x) => x)),
-        publisher: json["publisher"],
+        authors: json["authors"] == null
+            ? null
+            : new List<String>.from(json["authors"].map((x) => x)),
+        publisher: json["publisher"] == null ? null : json["publisher"],
         publishedDate:
             json["publishedDate"] == null ? null : json["publishedDate"],
         description: json["description"] == null ? null : json["description"],
@@ -415,8 +422,10 @@ class VolumeInfo {
 
   Map<String, dynamic> toJson() => {
         "title": title,
-        "authors": new List<dynamic>.from(authors.map((x) => x)),
-        "publisher": publisher,
+        "authors": authors == null
+            ? null
+            : new List<dynamic>.from(authors.map((x) => x)),
+        "publisher": publisher == null ? null : publisher,
         "publishedDate": publishedDate == null ? null : publishedDate,
         "description": description == null ? null : description,
         "industryIdentifiers": industryIdentifiers == null

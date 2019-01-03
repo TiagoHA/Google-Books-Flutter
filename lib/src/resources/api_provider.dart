@@ -13,8 +13,9 @@ class ApiProvider {
   Future<BooksModel> fetchAllBooks(
       {@required String search, int maxResults: 40, int index: 0}) async {
     final link =
-        "/volumes?q=\${$search}&maxResults=$maxResults&startIndex=$index";
+        "/volumes?q=\${$search}&maxResults=${maxResults ?? 40}&startIndex=${index ?? 0}";
     final response = await dio.get(link);
+    print(response.data);
 
     if (response.statusCode == 200) {
       return BooksModel.fromJson(response.data);
