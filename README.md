@@ -6,6 +6,7 @@
 - [ ] 40% - detail-screen
 - [x] Api fetch
 - [ ] Api pagination
+- [ ] Global BLoC
 
  
 ## Features
