@@ -1,8 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:google_books/src/blocs/application_bloc.dart';
 import 'package:google_books/src/models/books_model.dart';
 import 'package:google_books/src/providers/bloc_provider.dart';
-import 'package:google_books/src/ui/screens/book_detail.dart';
+import 'package:google_books/src/ui/screens/book_detail/book_detail.dart';
 
 class BooksList extends StatelessWidget {
   @override
@@ -36,7 +38,7 @@ class BooksList extends StatelessWidget {
             }
             return Center(
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: EdgeInsets.all(8.0),
                 child: CircularProgressIndicator(),
               ),
             );
@@ -54,17 +56,19 @@ class BooksList extends StatelessWidget {
           SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
       itemBuilder: (context, int index) {
         final book = snapshot.data.items[index];
+        print('*** BOOK: ');
+        print(json.encode(book));
         return Padding(
-          padding: const EdgeInsets.all(2),
+          padding: EdgeInsets.all(2),
           child: Container(
             child: GridTile(
               child: InkResponse(
-                onTap: () => _openDetailPage(context, book),
-                enableFeedback: true,
-                child: Image.network(
-                  book.volumeInfo.imageLinks.thumbnail,
-                ),
-              ),
+                  onTap: () => _openDetailPage(context, book),
+                  enableFeedback: true,
+                  child: Hero(
+                    tag: book.id,
+                    child: Image.network(book.volumeInfo.imageLinks.thumbnail),
+                  )),
               footer: Container(
                 padding: EdgeInsets.all(2),
                 color: Colors.black.withOpacity(0.6),

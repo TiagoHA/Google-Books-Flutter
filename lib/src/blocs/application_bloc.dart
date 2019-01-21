@@ -1,4 +1,4 @@
-import 'dart:convert';
+import 'dart:convert' show json;
 
 import 'package:google_books/src/models/books_model.dart';
 import 'package:google_books/src/providers/bloc_provider.dart';
@@ -13,6 +13,9 @@ class ApplicationBloc implements BlocBase {
     _booksList.stream.listen((listBooks) {
       print('LISTBOOKS: ');
       print(json.encode(listBooks));
+    });
+    _loadMoreBooks.stream.listen((index) {
+      print('INDEX BLOC: $index');
     });
   }
   final _repository = Repository();
@@ -30,8 +33,12 @@ class ApplicationBloc implements BlocBase {
     _booksList.sink.add(books);
   }
 
+  final _loadMoreBooks = PublishSubject<int>();
+  Function(int) get loadMoreBooks => _loadMoreBooks.sink.add;
+
   void dispose() {
     _search.close();
     _booksList.close();
+    _loadMoreBooks.close();
   }
 }

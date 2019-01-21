@@ -11,11 +11,15 @@ class ApiProvider {
   static final dio = Dio(options);
 
   Future<BooksModel> fetchAllBooks(
-      {@required String search, int maxResults: 40, int index: 0}) async {
+      {@required String search, int maxResults: 39, int index: 0}) async {
+    if (maxResults > 39) {
+      print('MaxResult max 39');
+      throw Exception('MaxResult is over 39 books');
+    }
+
     final link =
-        "/volumes?q=\${$search}&maxResults=${maxResults ?? 40}&startIndex=${index ?? 0}";
+        "/volumes?q=\${$search}&maxResults=$maxResults&startIndex=$index";
     final response = await dio.get(link);
-    print(response.data);
 
     if (response.statusCode == 200) {
       return BooksModel.fromJson(response.data);
@@ -24,5 +28,5 @@ class ApiProvider {
   }
 }
 
-// https://www.googleapis.com/books/v1/volumes?q=${harry%20pot}&maxResults=40&startIndex=0
+// https://www.googleapis.com/books/v1/volumes?q=${harry%20pot}&maxResults=39&startIndex=0
 // final newSearch = search.replaceAll(' ', '%20');

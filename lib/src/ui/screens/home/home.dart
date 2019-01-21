@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_books/src/blocs/application_bloc.dart';
 import 'package:google_books/src/providers/bloc_provider.dart';
-import 'package:google_books/src/ui/screens/books_list.dart';
+import 'package:google_books/src/ui/screens/books_list/books_list.dart';
 
 class Home extends StatelessWidget {
   @override
