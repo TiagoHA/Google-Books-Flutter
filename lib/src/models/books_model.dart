@@ -390,7 +390,7 @@ class VolumeInfo {
         publisher: json["publisher"] == null ? null : json["publisher"],
         publishedDate:
             json["publishedDate"] == null ? null : json["publishedDate"],
-        description: json["description"] == null ? null : json["description"],
+        description: json["description"] == null ? 'No description' : json["description"],
         industryIdentifiers: json["industryIdentifiers"] == null
             ? null
             : new List<IndustryIdentifier>.from(json["industryIdentifiers"]
