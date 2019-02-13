@@ -53,31 +53,32 @@ class BookDetail extends StatelessWidget {
                                     fontWeight: FontWeight.w700,
                                     fontFamily: 'Roboto-Bold',
                                     fontSize: book.volumeInfo.title.length < 40
-                                        ? 25
+                                        ? 20
                                         : 18),
                               ),
                               SizedBox(
-                                height: 5,
+                                height: 8,
                               ),
                               Text(
                                 'by ${book.volumeInfo?.authors.toString() ?? 'No authors'}',
                                 style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontFamily: 'Roboto-Medium',
-                                  fontSize: 18,
-                                ),
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: 'Roboto-Medium',
+                                    fontSize: 14,
+                                    color: subTitleColor),
                               ),
                               SizedBox(
-                                height: 5,
+                                height: 8,
                               ),
                               Row(
                                 children: <Widget>[
                                   Text(
                                     '\$ ${book.saleInfo?.listPrice?.amount ?? 0.0}',
                                     style: TextStyle(
-                                        fontWeight: FontWeight.w700,
-                                        fontFamily: 'Roboto-Bold',
-                                        fontSize: 18),
+                                      fontWeight: FontWeight.w700,
+                                      fontFamily: 'Roboto-Bold',
+                                      fontSize: 20,
+                                    ),
                                   ),
                                   SizedBox(
                                     width: 15,
@@ -100,24 +101,39 @@ class BookDetail extends StatelessWidget {
                         '${book.volumeInfo?.pageCount ?? 0} pages',
                         style: TextStyle(
                             fontSize: 14,
-                            fontFamily: 'Roboto-Regular',
-                            color: Colors.grey,
+                            fontFamily: 'Roboto-Normal',
+                            color: subTitleColor,
                             fontWeight: FontWeight.w400),
                       ),
                       Expanded(
                         child: SizedBox(),
                       ),
                       RaisedButton(
-                        color: Colors.blue,
-                        child: Text('Buy'),
+                        color: const Color(0xFF4A90E2),
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                          child: Text(
+                            'Buy',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30)),
                         onPressed: () {},
                       ),
-                      IconButton(
-                        icon: Icon(Icons.favorite),
-                        onPressed: () {},
-                      )
+                      Container(
+                        width: 45,
+                        height: 45,
+                        child: FloatingActionButton(
+                          child: Icon(
+                            Icons.favorite_border,
+                            color: Colors.white,
+                            size: 20,
+                          ),
+                          backgroundColor: Colors.redAccent,
+                          onPressed: () => {},
+                        ),
+                      ),
                     ],
                   ),
                 )
@@ -129,7 +145,10 @@ class BookDetail extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 Expanded(
-                  child: Text(book.volumeInfo.description),
+                  child: Text(
+                    book.volumeInfo.description,
+                    style: TextStyle(color: Color(0xFF4F565D), height: 1.5),
+                  ),
                 )
               ],
             ),
@@ -139,3 +158,5 @@ class BookDetail extends StatelessWidget {
     );
   }
 }
+
+const subTitleColor = Color(0xFF9F8B0C);
